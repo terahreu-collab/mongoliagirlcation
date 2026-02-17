@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mongolia Girlcation 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(160deg, #0a0a14 0%, #1a1a2e 40%, #16213e 70%, #0a0a14 100%);
+    color: #d4c5b0;
+    min-height: 100vh;
+  }
+  a { color: #D4A574; text-decoration: none; }
+  
+  /* Entry Screen */
+  .entry-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    text-align: center;
+  }
+  .entry-screen .flag { font-size: 64px; margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(212,165,116,0.3)); }
+  .entry-screen h1 { font-size: clamp(32px, 6vw, 56px); font-weight: 300; color: #D4A574; letter-spacing: 4px; line-height: 1.2; }
+  .entry-screen .subtitle { font-size: clamp(14px, 3vw, 20px); color: rgba(212,197,176,0.6); letter-spacing: 6px; text-transform: uppercase; margin-top: 8px; font-weight: 300; }
+  .entry-screen .divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #D4A574, transparent); margin: 32px auto; }
+  .entry-screen .tagline { color: rgba(212,197,176,0.8); font-size: 16px; max-width: 400px; line-height: 1.6; margin-bottom: 32px; font-style: italic; }
+  .entry-screen .instructions { color: rgba(212,197,176,0.35); font-size: 13px; max-width: 340px; line-height: 1.6; margin-bottom: 28px; }
+  .entry-screen input {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,165,116,0.3);
+    border-radius: 28px;
+    padding: 14px 28px;
+    color: #d4c5b0;
+    font-size: 16px;
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 260px;
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .entry-screen input::placeholder { color: rgba(212,197,176,0.4); }
+  .entry-btn {
+    background: rgba(255,255,255,0.05);
+    color: rgba(212,197,176,0.3);
+    border: none;
+    border-radius: 28px;
+    padding: 14px 40px;
+    font-size: 15px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: default;
+    transition: all 0.3s;
+  }
+  .entry-btn.active {
+    background: linear-gradient(135deg, #D4A574, #C4956A);
+    color: #1a1a2e;
+    cursor: pointer;
+  }
+  
+  /* Main Layout */
+  .main-app { display: none; }
+  .main-app.visible { display: block; }
+  header { text-align: center; padding: 60px 24px 40px; position: relative; }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(212,165,116,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  header h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 300; color: #D4A574; letter-spacing: 4px; }
+  .header-subtitle { color: rgba(212,197,176,0.5); letter-spacing: 5px; text-transform: uppercase; font-size: 13px; margin-top: 6px; }
+  .voting-as { color: rgba(212,197,176,0.4); font-size: 14px; margin-top: 12px; font-style: italic; }
+  .voting-as span { color: #D4A574; }
+  .divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #D4A574, transparent); margin: 24px auto; }
+  
+  /* Weather */
+  .weather-box {
+    background: rgba(212,165,116,0.08);
+    border: 1px solid rgba(212,165,116,0.15);
+    border-radius: 12px;
+    padding: 16px 24px;
+    max-width: 600px;
+    margin: 0 auto 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(212,197,176,0.7);
+  }
+  .weather-box strong { color: #D4A574; }
+  
+  /* Nav */
+  .nav { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .nav a {
+    color: rgba(212,197,176,0.7);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(212,165,116,0.15);
+    transition: all 0.3s;
+  }
+  .nav a:hover { background: rgba(212,165,116,0.15); color: #D4A574; }
+  
+  /* Main */
+  main { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
+  
+  /* Section */
+  .section { margin-bottom: 80px; }
+  .section-header { text-align: center; margin-bottom: 32px; }
+  .section-header h2 { font-size: 36px; font-weight: 300; color: #D4A574; letter-spacing: 3px; }
+  .section-header p { font-size: 16px; color: rgba(212,197,176,0.6); margin-top: 8px; font-style: italic; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+  
+  /* Cards */
+  .card {
+    background: linear-gradient(145deg, rgba(30,30,50,0.9), rgba(20,20,35,0.95));
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid rgba(212,165,116,0.15);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card.visible { opacity: 1; transform: translateY(0); }
+  .card.airbnb { border-color: rgba(255,88,93,0.35); background: linear-gradient(145deg, rgba(40,25,30,0.95), rgba(25,18,20,0.98)); position: relative; overflow: hidden; }
+  .card.special { border-color: rgba(212,165,116,0.4); background: linear-gradient(145deg, rgba(40,35,30,0.95), rgba(25,22,18,0.98)); position: relative; overflow: hidden; }
+  .card .emoji { font-size: 36px; margin-bottom: 12px; }
+  .card h3 { font-size: 20px; font-weight: 600; color: #D4A574; margin-bottom: 4px; }
+  .card .type { font-size: 12px; color: rgba(212,197,176,0.5); letter-spacing: 1px; text-transform: uppercase; }
+  .card .price { font-size: 14px; color: #D4A574; font-weight: 700; margin: 8px 0; }
+  .card .desc { font-size: 14px; line-height: 1.7; color: rgba(212,197,176,0.75); margin: 12px 0; }
+  .card .vibe { font-size: 13px; font-style: italic; color: rgba(212,165,116,0.6); margin-bottom: 12px; }
+  .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .badge.airbnb-badge { background: linear-gradient(135deg, #FF585D, #e04850); color: #fff; }
+  .badge.special-badge { background: linear-gradient(135deg, #D4A574, #C4956A); color: #1a1a2e; }
+  .book-link {
+    display: inline-block;
+    font-size: 13px;
+    color: #D4A574;
+    border: 1px solid rgba(212,165,116,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+  }
+  .book-link:hover { background: rgba(212,165,116,0.15); }
+  .highlight-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .highlight-tag {
+    background: rgba(212,165,116,0.1);
+    border: 1px solid rgba(212,165,116,0.15);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: rgba(212,197,176,0.65);
+  }
+  .airbnb-pick {
+    display: block;
+    background: rgba(212,165,116,0.06);
+    border: 1px solid rgba(212,165,116,0.12);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    transition: all 0.3s;
+  }
+  .airbnb-pick:hover { background: rgba(212,165,116,0.12); }
+  .airbnb-pick .name { font-size: 14px; color: #D4A574; font-weight: 600; }
+  .airbnb-pick .detail { display: block; font-size: 12px; color: rgba(212,197,176,0.6); margin-top: 2px; }
+  .intensity {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .intensity-easy { background: rgba(100,200,120,0.15); color: #8fd4a0; }
+  .intensity-medium { background: rgba(212,165,116,0.15); color: #D4A574; }
+  .intensity-hard { background: rgba(200,100,100,0.15); color: #d49494; }
+  .must-try { font-size: 13px; margin-bottom: 16px; }
+  .must-try .label { color: #D4A574; }
+  .must-try .val { color: rgba(212,197,176,0.65); font-style: italic; }
+  
+  /* Vote buttons */
+  .vote-area { margin-top: 8px; }
+  .vote-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .vote-row .rank-label { font-size: 12px; color: rgba(212,197,176,0.45); margin-right: 4px; }
+  .rank-btn {
+    border-radius: 20px;
+    padding: 5px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    min-width: 48px;
+    border: 1px solid rgba(212,165,116,0.2);
+    background: rgba(255,255,255,0.06);
+    color: rgba(212,197,176,0.5);
+  }
+  .rank-btn.r1-active { background: linear-gradient(135deg, #D4A574, #C4956A); color: #1a1a2e; border: none; }
+  .rank-btn.r2-active { background: linear-gradient(135deg, #B8956A, #A88560); color: #1a1a2e; border: none; }
+  .rank-btn.r3-active { background: linear-gradient(135deg, #8A7560, #7A6550); color: #f0e6d6; border: none; }
+  .pts-badge {
+    font-size: 13px;
+    color: #D4A574;
+    font-weight: 700;
+    margin-left: 8px;
+    background: rgba(212,165,116,0.1);
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .voter-breakdown { margin-top: 6px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .voter-tag {
+    font-size: 11px;
+    color: rgba(212,197,176,0.45);
+    background: rgba(212,165,116,0.06);
+    padding: 2px 8px;
+    border-radius: 8px;
+  }
+  
+  /* UB Nights */
+  .ub-nights-box {
+    background: linear-gradient(145deg, rgba(30,30,50,0.9), rgba(20,20,35,0.95));
+    border: 1px solid rgba(212,165,116,0.25);
+    border-radius: 16px;
+    padding: 32px 28px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .ub-nights-box h3 { font-size: 22px; color: #D4A574; font-weight: 600; margin-bottom: 8px; }
+  .ub-nights-box .info { font-size: 14px; color: rgba(212,197,176,0.65); line-height: 1.7; margin-bottom: 20px; }
+  .ub-options { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .ub-option { text-align: center; flex: 1 1 200px; max-width: 260px; }
+  .ub-option .label { font-size: 14px; color: rgba(212,197,176,0.7); font-weight: 600; margin-bottom: 4px; }
+  .ub-option .sub { font-size: 12px; color: rgba(212,197,176,0.4); margin-bottom: 10px; }
+  
+  /* Itineraries */
+  .itin-tabs { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .itin-tab {
+    background: rgba(255,255,255,0.06);
+    color: #d4c5b0;
+    border: 1px solid rgba(212,165,116,0.2);
+    border-radius: 24px;
+    padding: 10px 24px;
+    cursor: pointer;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+  .itin-tab.active { background: linear-gradient(135deg, #D4A574, #C4956A); color: #1a1a2e; border: none; }
+  .itin-tagline { text-align: center; font-style: italic; color: rgba(212,197,176,0.6); font-size: 16px; margin-bottom: 24px; }
+  .itin-days { display: flex; flex-direction: column; gap: 12px; max-width: 700px; margin: 0 auto; }
+  .day-card { padding: 18px 22px !important; }
+  .day-row { display: flex; gap: 16px; align-items: flex-start; }
+  .day-num {
+    min-width: 44px; height: 44px;
+    background: rgba(212,165,116,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #D4A574;
+    flex-shrink: 0;
+  }
+  .day-title { font-size: 17px; color: #D4A574; font-weight: 600; margin-bottom: 6px; }
+  .day-desc { font-size: 14px; line-height: 1.6; color: rgba(212,197,176,0.7); }
+  
+  /* Shopping */
+  .shop-emoji { font-size: 32px; margin-bottom: 8px; }
+  .shop-title { font-size: 18px; font-weight: 600; color: #D4A574; margin-bottom: 8px; }
+  .shop-desc { font-size: 14px; line-height: 1.7; color: rgba(212,197,176,0.75); margin-bottom: 10px; }
+  .shop-where { font-size: 13px; }
+  .shop-where .label { color: #D4A574; font-weight: 600; }
+  .shop-where .val { color: rgba(212,197,176,0.6); font-style: italic; }
+  
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid rgba(212,165,116,0.1);
+  }
+  .footer p:first-child { font-size: 20px; font-weight: 300; color: #D4A574; letter-spacing: 2px; }
+  .footer p:last-child { font-size: 13px; color: rgba(212,197,176,0.4); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<!-- Entry Screen -->
+<div id="entry" class="entry-screen">
+  <div class="flag">🇲🇳</div>
+  <h1>MONGOLIA</h1>
+  <p class="subtitle">Girlcation 2026</p>
+  <div class="divider"></div>
+  <p class="tagline">April 1–7 · Land of the Eternal Blue Sky<br>Nomadic adventures, starlit gers, and ancient wonder</p>
+  <p class="instructions">Enter your name to rank your top 3 picks in each category.<br>1st = 3 pts · 2nd = 2 pts · 3rd = 1 pt<br>Highest points wins!</p>
+  <input type="text" id="nameInput" placeholder="Enter your name to vote..." onkeydown="if(event.key==='Enter')enterSite()">
+  <button class="entry-btn" id="enterBtn" onclick="enterSite()">Enter →</button>
+</div>
+
+<!-- Main App -->
+<div id="app" class="main-app">
+  <header>
+    <div style="font-size:48px;margin-bottom:16px">🇲🇳</div>
+    <h1>MONGOLIA</h1>
+    <p class="header-subtitle">Girlcation · April 1–7, 2026</p>
+    <p class="voting-as">Voting as: <span id="voterDisplay"></span></p>
+    <div class="divider"></div>
+    <div class="weather-box">🌤️ <strong>April Weather:</strong> Spring awakening: 0°C to 15°C days, chilly nights. Pack layers! Off-season = fewer crowds, better prices, authentic experiences.</div>
+    <div class="nav">
+      <a href="#hotels">Hotels</a>
+      <a href="#gers">Ger Camps</a>
+      <a href="#experiences">Experiences</a>
+      <a href="#restaurants">Restaurants</a>
+      <a href="#shopping">Shopping</a>
+      <a href="#ub-nights">UB Nights</a>
+      <a href="#itineraries">Itineraries</a>
+    </div>
+  </header>
+
+  <main id="mainContent"></main>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script>
+// === FIREBASE ===
+const firebaseConfig = {
+  apiKey: "AIzaSyDvVrKQw3wyE5hYpiqI8ICSZWH_BfgGb4Q",
+  authDomain: "girlcation-mongolia.firebaseapp.com",
+  projectId: "girlcation-mongolia",
+  storageBucket: "girlcation-mongolia.firebasestorage.app",
+  messagingSenderId: "67192483800",
+  appId: "1:67192483800:web:3ba8419f5b073aebcb8cad",
+  measurementId: "G-QRR3PRRMPN",
+  databaseURL: "https://girlcation-mongolia-default-rtdb.firebaseio.com"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const votesRef = db.ref('votes');
+
+// === DATA ===
+const DATA = {
+  hotels: [
+    { id:"acc1", name:"Shangri-La Hotel, Ulaanbaatar", type:"5-Star Luxury", nights:"Nights 1 & 6 (2 nights in UB)", price:"~$440–550 USD/night for 2 rooms ($220–275 each)", desc:"The premier hotel in UB, steps from Sukhbaatar Square. Panoramic mountain/city views, world-class spa, heated indoor pool, and multiple restaurants including Hutong (best Beijing duck in Mongolia). Perfect for arrival recovery and pre-departure pampering. April is off-season so rates trend toward the lower end.", vibe:"Luxury base camp meets cosmopolitan elegance", link:"https://www.shangri-la.com/ulaanbaatar/shangrila/", highlights:["Rooftop bar with city views","Full-service spa & pool","Connected to upscale shopping mall","Multiple award-winning restaurants"], emoji:"🏨" },
+    { id:"acc2", name:"Kempinski Hotel Khan Palace", type:"5-Star Heritage Luxury", nights:"Nights 1 & 6 (2 nights in UB)", price:"~$200–300 USD/night for 2 rooms ($100–150 each)", desc:"European elegance meets Mongolian warmth. Newly renovated in 2024–25 with refurbished spa and fitness. Home to five restaurants including Khara Khorum (fine Mongolian dining) and Sakura Sushi Bar. Ranked #1 on TripAdvisor for all of Ulaanbaatar — and at half the price of the Shangri-La. Incredible value.", vibe:"Old-world charm with Mongolian soul", link:"https://www.kempinski.com/en/hotel-khan-palace", highlights:["Khara Khorum fine dining restaurant","Japanese-style spa & sauna","Central location near museums","Egyptian cotton bedding & luxury amenities"], emoji:"🏰" },
+    { id:"acc3", name:"Blue Sky Hotel & Tower", type:"4.5-Star Boutique Tower", nights:"Nights 1 & 6 (2 nights in UB)", price:"~$220–320 USD/night for 2 rooms ($110–160 each)", desc:"Ulaanbaatar's most architecturally striking hotel — a glass tower shaped like a sail. Modern rooms with floor-to-ceiling windows, rooftop restaurant, full spa with hot tub and sauna. Excellent value for the quality.", vibe:"Modern design icon with panoramic views", link:"https://www.expedia.com/Ulaanbaatar-Hotels-Blue-Sky-Hotel-Tower.h12498498.Hotel-Information", highlights:["Iconic glass tower architecture","Floor-to-ceiling window views","Rooftop dining experience","Indoor pool, hot tub & full spa"], emoji:"🗼" },
+    { id:"acc7", name:"Airbnb — Luxury City Center Apartment", type:"Private Rental", nights:"Nights 1 & 6 (2 nights in UB)", price:"~$80–180 USD/night total (for a 2–3 bedroom apt)", desc:"UB has a surprisingly great Airbnb scene. You can find stylish, modern 2–3 bedroom apartments right in the city center — steps from Sukhbaatar Square, Shangri-La Mall, and all the restaurants. Many are newly renovated with gorgeous interiors, fully equipped kitchens, fast WiFi, washing machines, and stunning city/mountain views. A 2–3 bedroom condo fits all 4–5 of us under one roof — perfect for late-night wine & girlcation debriefs.", vibe:"Home base meets slumber party energy", highlights:["All of us under one roof","Full kitchen for morning coffee & snacks","Huge savings vs. hotels","Nomadic-inspired decor options available"], emoji:"🏠", isAirbnb:true, airbnbs:[
+      { name:"Central 3BR — 300m from Sukhbaatar Sq", detail:"105m², 3 bedrooms, sleeps 8, panoramic views, brand new. ~$80/night", url:"https://www.airbnb.com/rooms/33644292" },
+      { name:"UBair — 2BR Next to Sukhbaatar Square", detail:"2 bedrooms, 2 bathrooms, sleeps 7, coffee machine, fully equipped. ~$60–90/night", url:"https://www.airbnb.com/ulaanbaatar-mongolia/stays" },
+      { name:"2BR Cozy Apt — City Views + Terrace", detail:"110m², 2 bedrooms, 2 bathrooms, terrace with view, indoor parking. ~$70–100/night", url:"https://www.airbnb.com/ulaanbaatar-region-mongolia/stays/apartments" }
+    ]}
+  ],
+  gers: [
+    { id:"acc4", name:"Terelj Lodge (Ger Camp)", type:"Luxury Ger Camp", nights:"Nights 2–5 (3–4 nights in countryside)", price:"~$80–120 USD/night per person (meals included)", desc:"The top-rated ger camp in Terelj National Park, just 1.5 hours from UB. Choose between standard gers (shared facilities) or deluxe gers with private bathrooms. Heritage restaurant serves incredible Mongolian BBQ with valley views. Horseback riding, hiking, and nomadic family visits on your doorstep. This is where the trip really happens.", vibe:"Authentic nomadic luxury under the stars", link:"https://www.tereljlodge.com/", highlights:["Deluxe gers with private bathrooms","Mongolian BBQ restaurant with valley views","Horseback riding & guided hikes","Turtle Rock & monastery nearby"], emoji:"⛺" },
+    { id:"acc5", name:"Princess Lodge (Ger Camp)", type:"Remote Luxury Ger Camp", nights:"Nights 2–5 (3–4 nights in countryside)", price:"~$90–130 USD/night per person (meals included)", desc:"Hidden deep in the Terelj wilderness with no roads or settlements nearby — pure nature immersion. Flush toilets, hot showers, 24-hour solar electricity, and a Finnish-style sauna. Named after a Manchu princess temple nearby. Kayaking, mountain biking, and wildlife watching included.", vibe:"Off-grid wilderness meets unexpected comfort", link:"https://www.goyotravel.com/5-characterful-ger-camps-mongolia/", highlights:["Finnish sauna on-site","Solar-powered 24hr electricity","Kayaking on Baruun Bayan river","Zero light pollution — incredible stargazing"], emoji:"🌲" },
+    { id:"acc6", name:"My Mongolia Eco Ger Camp", type:"Eco-Friendly Ger Camp", nights:"Nights 2–5 (3–4 nights in countryside)", price:"~$60–90 USD/night per person (meals included)", desc:"Rated #1 on TripAdvisor for Mongolia ger camps after travelers spent 7 weeks comparing. Beautifully authentic interiors, incredibly friendly staff, and delicious homemade food (their beef noodles are legendary). Quiet, clean, and genuinely welcoming.", vibe:"Authentic, cozy, and community-focused", link:"https://www.tripadvisor.com/Hotel_Review-g293956-d8640095-Reviews-My_Mongolia_Eco_Ger_Camp-Ulaanbaatar.html", highlights:["#1 rated ger camp on TripAdvisor","Authentic traditional ger interiors","Homemade Mongolian meals","Quiet location with cows, horses & wildlife"], emoji:"🏕️" }
+  ],
+  experiences: [
+    { id:"exp1", name:"Horseback Riding Across the Steppe", duration:"Half day or full day", price:"$40–80 USD/person", desc:"Mongolia is THE country for horseback riding — kids learn to ride before they walk. Gallop across endless grasslands with a local herder guide, stop at nomadic families for tea, and feel the freedom of the open steppe. No experience needed.", intensity:"Medium", emoji:"🐎" },
+    { id:"exp2", name:"Nomadic Family Homestay Visit", duration:"Half day", price:"$25–50 USD/person", desc:"Visit a real nomadic family in their ger. Learn to make airag (fermented mare's milk), try milking a yak, taste fresh aaruul (dried curd), and hear stories passed down through generations. This is the Mongolia you came to see.", intensity:"Easy", emoji:"🏠" },
+    { id:"exp3", name:"Throat Singing & Morin Khuur Concert", duration:"Evening (2 hours)", price:"$15–30 USD/person", desc:"Experience the haunting, otherworldly sound of Khoomei throat singing and the morin khuur (horsehead fiddle). The Tumen Ekh Ensemble in UB is world-renowned — contortionists, traditional dancers, and musicians in one unforgettable show.", intensity:"Easy", emoji:"🎵" },
+    { id:"exp4", name:"Chinggis Khaan Statue Complex", duration:"Half day", price:"$15–25 USD/person", desc:"The world's largest equestrian statue — a 40-meter (131 ft) stainless steel Genghis Khan on horseback. Climb to the observation deck on the horse's head for 360° views of the endless steppe. Dress up in warrior armor for photos. Museum inside with Mongol Empire artifacts.", intensity:"Easy", emoji:"⚔️" },
+    { id:"exp5", name:"Terelj National Park Trek", duration:"Full day", price:"$30–60 USD/person (with guide)", desc:"Hike through dramatic rock formations, alpine meadows coming alive with spring wildflowers, and pristine rivers. See iconic Turtle Rock, visit the Aryabal Meditation Temple perched on a mountainside, and breathe the cleanest air you've ever experienced.", intensity:"Medium-Hard", emoji:"🏔️" },
+    { id:"exp6", name:"Mongolian Cooking Class (Buuz & Khuushuur)", duration:"3 hours", price:"$30–45 USD/person", desc:"Learn to hand-fold buuz (steamed dumplings) and fry khuushuur (meat pockets) from a Mongolian grandmother. Make suutei tsai (salted milk tea) and tsuivan (hand-pulled noodle stew). You'll eat everything you make — and it will be delicious.", intensity:"Easy", emoji:"🥟" },
+    { id:"exp7", name:"Gandantegchinlen Monastery & City Tour", duration:"Half day", price:"$20–40 USD/person", desc:"Visit the largest and most important Buddhist monastery in Mongolia, home to a towering 26m gilded Buddha statue. Explore the Chinggis Khaan National Museum, browse the incredible cashmere shops, and soak in UB's eclectic mix of Soviet architecture and modern glass towers.", intensity:"Easy", emoji:"🛕" },
+    { id:"exp8", name:"🦅 Golden Eagle Experience", duration:"Half day (near Ulaanbaatar)", price:"$50–120 USD/person", desc:"Meet a Kazakh eagle handler near Ulaanbaatar for an up-close encounter with a trained golden eagle. Hold the massive bird (they weigh ~9kg!) on your arm, learn about the ancient 4,500-year-old tradition of eagle hunting, take incredible photos, and hear stories of the bond between hunter and bird. NOTE: The truly authentic eagle hunter families live in Olgii, far western Mongolia (~3hr flight from UB).", intensity:"Easy", emoji:"🦅", isSpecial:true }
+  ],
+  restaurants: [
+    { id:"rest1", name:"Monet Fine Dining", cuisine:"French / European Fine Dining", price:"$$$$", desc:"THE fancy dinner in UB. Perched on the 17th floor of Central Tower overlooking Sukhbaatar Square, with views stretching to Bogd Khan Mountain. French-influenced cuisine with Wagyu steaks, Norwegian salmon, and impeccable wine pairings.", mustTry:"Wagyu steak & sunset cocktails at Sky 17 Bar beforehand", vibe:"✨ Super Fancy", emoji:"🥂" },
+    { id:"rest2", name:"Veranda", cuisine:"Italian / Mediterranean", price:"$$$", desc:"UB's original fine dining restaurant, voted best in the city by expats year after year. Overlooking the gorgeous Choijin Lama Temple, their dry-aged T-bone steak and pasta dishes are truly outstanding. Pro tip: after dinner, head downstairs to Fat Club jazz bar.", mustTry:"30-day dry-aged T-bone & the Moroccan soup", vibe:"🍷 Elegant & Intimate", emoji:"🍝" },
+    { id:"rest3", name:"Altan Gadas", cuisine:"Traditional Mongolian + Live Show", price:"$$", desc:"Dinner AND a show. Every night at 7pm, throat singers, morin khuur musicians, and contortionists perform right in the restaurant. Ger-inspired decor, enormous shareable meat platters, and draft Chinggis beer. There's even a private wrestler-themed ger room for groups.", mustTry:"Khorkhog meat platter (cooked with hot stones!) & draft Chinggis beer", vibe:"🎶 Traditional + Entertainment", emoji:"🥩" },
+    { id:"rest4", name:"Modern Nomads", cuisine:"Traditional Mongolian", price:"$$", desc:"The beloved Mongolian comfort food chain that locals and travelers alike swear by. Traditional furnishings, hearty dishes, and always buzzing. Their bone marrow soup and khuushuur are iconic.", mustTry:"Bone marrow soup & khuushuur", vibe:"🍜 Classic & Cozy", emoji:"🥘" },
+    { id:"rest5", name:"The Moriton", cuisine:"Traditional Mongolian (Hidden Gem)", price:"$", desc:"A local secret that most tourists miss. Buzzing at lunch with Mongolians who work in the city center, this is where you get the most authentic food in UB.", mustTry:"Khuushuur & tsuivan", vibe:"🏠 Authentic Local Spot", emoji:"🥟" },
+    { id:"rest6", name:"Art of UB Gallery & Slowbar (VVIP Ger)", cuisine:"Cocktails & Mongolian Bites", price:"$$$", desc:"A secret gem hidden behind an art gallery — rent the private VVIP ger for your group. Three connected gers: bar area, seated dining, and lounge. This is THE girlcation moment.", mustTry:"Craft cocktails in a private ger + buuz platter", vibe:"🎨 Unforgettable Experience", emoji:"🍸" },
+    { id:"rest7", name:"Route 22 Restaurant & Lounge", cuisine:"Gourmet Fusion / Wine Bar", price:"$$$", desc:"A sophisticated wine-focused restaurant with over 150 wines and an in-house sommelier — rare for UB. The fusion menu blends Mongolian, European, and Asian influences beautifully.", mustTry:"Tasting menu with wine pairing", vibe:"🍷 Sophisticated & Chic", emoji:"🍽️" },
+    { id:"rest8", name:"Hazara Indian Restaurant", cuisine:"North Indian (Mughlai & Dum-Pukht)", price:"$$", desc:"Consistently called the best Indian restaurant in East Asia. Indian-owned with completely authentic Mughlai cuisine. Candlelit tables, curtain-separated seating. Your group has been to India, so you know what good Indian food is — Hazara delivers.", mustTry:"Raan e hazara (whole marinated lamb leg) & garlic naan", vibe:"🕯️ Romantic & Authentic", emoji:"🍛" },
+    { id:"rest9", name:"Sky Lounge (Blue Sky Hotel)", cuisine:"International / Mongolian Fusion", price:"$$$$", desc:"Perched at the top of UB's most iconic building, the views are unreal. International and Mongolian fusion dishes, beautifully presented. Ideal for a special brunch or sunset cocktails.", mustTry:"Sunset cocktails with panoramic views", vibe:"✨ Views for Days", emoji:"🌅" },
+    { id:"rest10", name:"Great Mongol Beer Hall", cuisine:"Mongolian / Beer Hall", price:"$", desc:"UB's biggest, rowdiest beer hall. Massive Naadam khuushuur, cold local beer, and the best people-watching in the city. This is where you make friends with locals.", mustTry:"Naadam khuushuur & local draught beer", vibe:"🍺 Rowdy & Real", emoji:"🍻" }
+  ],
+  shopping: [
+    { emoji:"🧶", title:"Cashmere (THE thing to buy)", desc:"Mongolia is the world's 2nd-largest cashmere producer — and prices are up to 10x cheaper than back home. Scarves, sweaters, coats, socks, blankets. Get natural undyed colors for the softest quality. Major brands like Hermès source their cashmere from here.", where:"Gobi Cashmere flagship (Sukhbaatar Sq — world's largest cashmere store!) · Goyo Cashmere · Evseg · State Department Store 4th floor" },
+    { emoji:"🎨", title:"Handmade Felt Goods", desc:"Mongolia's felt tradition goes back millennia. Beautiful slippers, bags, ornaments, toys, and wall hangings — all handmade by local artisans. Many shops support women's cooperatives.", where:"Mary & Martha (fair trade, tucked on a side street but SO worth finding) · Mongolian Quilting Center (supports women with disabilities) · Tsagaan Alt Wool Shop (non-profit)" },
+    { emoji:"🧴", title:"Organic Beauty Products", desc:"Mongolia's wild-harvested sea buckthorn, yak milk, and herbal ingredients make incredible natural skincare. Lhamour is the top local brand — gorgeous packaging, amazing gifts.", where:"Lhamour Creative Store · State Department Store · Shangri-La Mall" },
+    { emoji:"🐴", title:"Nomadic Crafts & Art", desc:"Mongolian snuff bottles (traditional exchange gifts), horse-themed art, Buddhist medallions, hand-painted miniatures, Kazakh wall hangings, and morin khuur (horsehead fiddle) replicas.", where:"State Department Store 6th floor · Mary & Martha · Galleria Ulaanbaatar · Narantuul 'Black Market' (chaotic but incredible — go with a guide!)" },
+    { emoji:"🥃", title:"Horse Milk Vodka & Specialty Foods", desc:"Yes, horse milk vodka is a real thing and it makes the most uniquely Mongolian gift. Also grab dried curd (aaruul), Mongolian tea bricks, and Golden Gobi chocolate.", where:"State Department Store grocery floor · Good Price (Shangri-La Mall basement) · Any local market" },
+    { emoji:"👗", title:"Traditional Clothing", desc:"Mongolian deel (traditional robes) are stunningly beautiful — silk versions with intricate embroidery make incredible statement pieces. Also look for traditional leather boots with the distinctive curved toes.", where:"State Department Store · Narantuul Market · Ikh Delguur" }
+  ],
+  itineraries: [
+    { id:"itin1", name:"Balanced & Beautiful", tagline:"The sweet spot — culture, adventure, and breathing room", days:[
+      {day:1,title:"Arrive in UB",desc:"Land at 11:05pm. Transfer to hotel. Collapse into bed — the adventure starts tomorrow."},
+      {day:2,title:"Ulaanbaatar Highlights",desc:"Sleep in → Gandantegchinlen Monastery morning prayers → Chinggis Khaan Museum → Cashmere shopping on Seoul Street (Gobi Cashmere flagship!) → Tumen Ekh throat singing & contortion show → Dinner at Altan Gadas (live throat singing with dinner + enormous meat platters — welcome to Mongolia!)"},
+      {day:3,title:"Into the Steppe",desc:"Morning drive to Chinggis Khaan Statue Complex (hold a golden eagle!) → Continue to Terelj National Park (1.5hrs total) → Settle into ger camp → Afternoon nomadic family visit (milk tea, dairy making, stories) → First night under the stars"},
+      {day:4,title:"Full Terelj Day",desc:"Morning horseback ride across the steppe with local herder guide → Picnic lunch in nature → Afternoon hike to Turtle Rock & Aryabal Meditation Temple → Mongolian cooking class (buuz & khuushuur folding) → Campfire evening & stargazing"},
+      {day:5,title:"Adventure & Unwind",desc:"Choose your own morning: sleep in / sunrise hike / sauna → Late morning optional second horseback ride or mountain biking → Afternoon tea & downtime at the ger camp (reading, journaling, napping on the steppe) → Farewell countryside dinner under the stars"},
+      {day:6,title:"Return to UB & Celebrate",desc:"Leisurely morning departure → Drive back to UB → Check into hotel → Art of UB Slowbar VVIP ger cocktails → Farewell dinner at Monet (17th floor, Sukhbaatar Square views, Wagyu steaks — going out in style!) → Pack up"},
+      {day:7,title:"Departure",desc:"Flight departs 12:25am — technically still night 6. Goodbye Mongolia, hello memories forever. 🇲🇳"}
+    ]},
+    { id:"itin2", name:"All-In Adventure", tagline:"For the crew that says yes to everything", days:[
+      {day:1,title:"Arrive in UB",desc:"Land at 11:05pm. Transfer to hotel. Rest up — big days ahead."},
+      {day:2,title:"City & Culture Sprint",desc:"Early start → Gandantegchinlen Monastery → Chinggis Khaan Museum → Quick cashmere shopping → Lunch at Asiana (pan-fried buuz!) → Afternoon Chinggis Khaan Statue + golden eagle experience → Drive to Terelj → Settle into ger camp → Evening throat singing performance at camp"},
+      {day:3,title:"Horse Day",desc:"Full-day horseback trek through valleys and along rivers with local herder guides → Stop at nomadic families along the way → Pack lunch in saddlebags → Return to camp for hot dinner & stargazing"},
+      {day:4,title:"Peak Adventure",desc:"Dawn hike to Aryabal Meditation Temple → Turtle Rock exploration → Afternoon cooking class (buuz making competition!) → Optional mountain biking or kayaking → Campfire, Mongolian vodka, and deep talks under a million stars"},
+      {day:5,title:"Wild Morning, Easy Afternoon",desc:"One more morning ride or sunrise yoga on the steppe → Nomadic family extended visit (try milking, herding, archery) → Late afternoon drive back to UB → Check in, shower, refresh → Dinner at Veranda (dry-aged T-bone!) + jazz at Fat Club downstairs"},
+      {day:6,title:"Final UB Day",desc:"Sleep in → Hotel spa morning → Last-minute cashmere shopping at Gobi flagship → Art of UB VVIP ger cocktails → Farewell dinner at Monet (17th floor fine dining, toasts with views!) → Pack"},
+      {day:7,title:"Departure",desc:"12:25am flight. Departing with full hearts and sore legs. 🐎"}
+    ]},
+    { id:"itin3", name:"Slow & Soulful", tagline:"Deep connection, zero rushing, all presence", days:[
+      {day:1,title:"Arrive in UB",desc:"Land at 11:05pm. Transfer to hotel. Wind down, rest."},
+      {day:2,title:"Gentle Start",desc:"Sleep in → Late brunch at Millie's Café → Gandantegchinlen Monastery (sit in on prayers, soak in the peace) → Cashmere shopping at your pace (Gobi flagship + Mary & Martha felt goods) → Early evening throat singing show → Dinner at Hazara (incredible Indian food — your group knows good Indian, Hazara delivers)"},
+      {day:3,title:"Journey to Terelj",desc:"Leisurely morning drive through the countryside → Stop at Chinggis Khaan Statue if we feel like it → Arrive at ger camp → Afternoon tea on the steppe, reading, journaling → Gentle sunset walk → Family-style dinner in the ger restaurant"},
+      {day:4,title:"Nomadic Soul Day",desc:"Extended nomadic family visit — learn dairy production, try milking, share stories over tea → Afternoon horseback ride at your own pace (beginners welcome) → Cooking class (buuz folding with a Mongolian grandmother) → Night sky meditation & stargazing"},
+      {day:5,title:"Nature & Stillness",desc:"Morning hike to Turtle Rock → Picnic lunch by the river → Afternoon at leisure: sauna, reading, napping, spa if available → One more sunset on the steppe → Final countryside dinner"},
+      {day:6,title:"Farewell Day",desc:"Morning departure back to UB → Check into hotel for showers & refresh → Art of UB VVIP ger afternoon cocktails → Farewell dinner at Monet (17th floor fine dining — toasts and tears with Sukhbaatar Square views) → Pack together"},
+      {day:7,title:"Departure",desc:"12:25am flight. Leaving as better versions of ourselves. ✨"}
+    ]}
+  ]
+};
+
+// === VOTES (Firebase Realtime Database) ===
+let votes = {};
+let voter = '';
+
+function loadVotes() {
+  // Firebase listener will handle this
+}
+function saveVotes() {
+  votesRef.set(votes);
+}
+
+// Listen for realtime changes
+votesRef.on('value', (snapshot) => {
+  votes = snapshot.val() || {};
+  if (voter) {
+    renderAll();
+    setTimeout(()=>document.querySelectorAll('.card').forEach(c=>c.classList.add('visible')),50);
+  }
+});
+
+// === ENTRY ===
+const nameInput = document.getElementById('nameInput');
+const enterBtn = document.getElementById('enterBtn');
+nameInput.addEventListener('input', () => {
+  if (nameInput.value.trim()) { enterBtn.classList.add('active'); } else { enterBtn.classList.remove('active'); }
+});
+
+function enterSite() {
+  const name = nameInput.value.trim();
+  if (!name) return;
+  voter = name;
+  document.getElementById('entry').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  document.getElementById('voterDisplay').textContent = voter;
+  renderAll();
+  setTimeout(observeCards, 100);
+}
+
+// === RENDER ===
+function voteHTML(itemId, category) {
+  const rankLabels = ['1st','2nd','3rd'];
+  let totalPoints = 0;
+  let breakdown = [];
+  const itemPrefix = `${category}-${itemId}-`;
+  Object.keys(votes).forEach(k => {
+    if (k.startsWith(itemPrefix)) {
+      const rank = votes[k];
+      const pts = rank===1?3:rank===2?2:rank===3?1:0;
+      totalPoints += pts;
+      const vName = k.slice(itemPrefix.length);
+      if (pts>0) breakdown.push({name:vName, rank});
+    }
+  });
+  const thisKey = `${category}-${itemId}-${voter}`;
+  const currentRank = votes[thisKey]||0;
+
+  let html = '<div class="vote-area"><div class="vote-row"><span class="rank-label">Rank:</span>';
+  [1,2,3].forEach(rank => {
+    const active = currentRank===rank;
+    const cls = active ? ` r${rank}-active` : '';
+    html += `<button class="rank-btn${cls}" onclick="setRank('${itemId}','${category}',${rank})">${active?'★ ':''}${rankLabels[rank-1]}</button>`;
+  });
+  if (totalPoints>0) html += `<span class="pts-badge">${totalPoints} pts</span>`;
+  html += '</div>';
+  if (breakdown.length>0) {
+    html += '<div class="voter-breakdown">';
+    breakdown.sort((a,b)=>a.rank-b.rank).forEach(v => {
+      html += `<span class="voter-tag">${v.name}: ${rankLabels[v.rank-1]}</span>`;
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function setRank(itemId, category, rank) {
+  const thisKey = `${category}-${itemId}-${voter}`;
+  const currentRank = votes[thisKey]||0;
+  if (currentRank===rank) {
+    delete votes[thisKey];
+  } else {
+    const catPrefix = `${category}-`;
+    Object.keys(votes).forEach(k => {
+      if (k.startsWith(catPrefix) && k.endsWith(`-${voter}`) && votes[k]===rank) delete votes[k];
+    });
+    votes[thisKey] = rank;
+  }
+  saveVotes();
+  renderAll();
+  setTimeout(()=>document.querySelectorAll('.card').forEach(c=>c.classList.add('visible')),50);
+}
+
+function cardWrap(content, extra='') { return `<div class="card ${extra}">${content}</div>`; }
+
+function renderAll() {
+  let html = '';
+
+  // Hotels
+  html += '<section id="hotels" class="section"><div class="section-header"><h2>Where We Stay in UB</h2><p>2 nights bookending the trip — arrival & farewell</p></div><div class="grid">';
+  DATA.hotels.forEach(h => {
+    let c = '';
+    if (h.isAirbnb) c += '<span class="badge airbnb-badge">Airbnb Option</span>';
+    c += `<div class="emoji">${h.emoji}</div>`;
+    c += `<h3>${h.name}</h3><div class="type">${h.type}</div>`;
+    c += `<div class="price">${h.price}</div>`;
+    c += `<div class="desc">${h.desc}</div>`;
+    c += `<div class="vibe">Vibe: ${h.vibe}</div>`;
+    if (h.link) c += `<a class="book-link" href="${h.link}" target="_blank">🔗 View & Book →</a>`;
+    if (h.airbnbs) {
+      c += '<p style="font-size:13px;font-weight:700;color:#D4A574;margin:8px 0">Our Top 3 Picks:</p>';
+      h.airbnbs.forEach(ab => {
+        c += `<a class="airbnb-pick" href="${ab.url}" target="_blank"><span class="name">${ab.name}</span><span class="detail">${ab.detail}</span></a>`;
+      });
+    }
+    c += '<div class="highlight-tags">';
+    h.highlights.forEach(hl => { c += `<span class="highlight-tag">${hl}</span>`; });
+    c += '</div>';
+    c += voteHTML(h.id, 'acc');
+    html += cardWrap(c, h.isAirbnb?'airbnb':'');
+  });
+  html += '</div></section>';
+
+  // Ger Camps
+  html += '<section id="gers" class="section"><div class="section-header"><h2>Where We Stay in the Countryside</h2><p>3–4 nights in Terelj — this is the heart of the trip</p></div><div class="grid">';
+  DATA.gers.forEach(g => {
+    let c = `<div class="emoji">${g.emoji}</div>`;
+    c += `<h3>${g.name}</h3><div class="type">${g.type}</div>`;
+    c += `<div class="price">${g.price}</div>`;
+    c += `<div class="desc">${g.desc}</div>`;
+    c += `<div class="vibe">Vibe: ${g.vibe}</div>`;
+    if (g.link) c += `<a class="book-link" href="${g.link}" target="_blank">🔗 View Details →</a>`;
+    c += '<div class="highlight-tags">';
+    g.highlights.forEach(hl => { c += `<span class="highlight-tag">${hl}</span>`; });
+    c += '</div>';
+    c += voteHTML(g.id, 'acc');
+    html += cardWrap(c);
+  });
+  html += '</div></section>';
+
+  // Experiences
+  html += '<section id="experiences" class="section"><div class="section-header"><h2>What We Do</h2><p>Rank your top 3 — we\'ll build the itinerary around the winners</p></div><div class="grid">';
+  DATA.experiences.forEach(e => {
+    const intClass = e.intensity==='Easy'?'intensity-easy':e.intensity==='Medium'?'intensity-medium':'intensity-hard';
+    let c = '';
+    if (e.isSpecial) c += '<span class="badge special-badge">★ New Proposal</span>';
+    c += `<div style="display:flex;justify-content:space-between;align-items:center"><div class="emoji" style="margin-bottom:0">${e.emoji}</div><span class="intensity ${intClass}">${e.intensity}</span></div>`;
+    c += `<h3 style="margin-top:12px">${e.name}</h3>`;
+    c += `<p style="font-size:13px;color:rgba(212,197,176,0.5);margin-bottom:8px">${e.duration} · ${e.price}</p>`;
+    c += `<div class="desc" style="margin:0 0 16px">${e.desc}</div>`;
+    c += voteHTML(e.id, 'exp');
+    html += cardWrap(c, e.isSpecial?'special':'');
+  });
+  html += '</div></section>';
+
+  // Restaurants
+  html += '<section id="restaurants" class="section"><div class="section-header"><h2>Where We Eat</h2><p>A mix of super fancy & authentically delicious — vote your favorites</p></div><div class="grid">';
+  DATA.restaurants.forEach(r => {
+    let c = `<div class="emoji">${r.emoji}</div>`;
+    c += `<h3>${r.name}</h3>`;
+    c += `<p style="font-size:13px;color:rgba(212,197,176,0.5);margin-bottom:4px">${r.cuisine} · ${r.price}</p>`;
+    c += `<p style="font-size:12px;color:#D4A574;font-weight:600;margin-bottom:8px">${r.vibe}</p>`;
+    c += `<div class="desc" style="margin:0 0 8px">${r.desc}</div>`;
+    c += `<div class="must-try"><span class="label">Must try: </span><span class="val">${r.mustTry}</span></div>`;
+    c += voteHTML(r.id, 'rest');
+    html += cardWrap(c);
+  });
+  html += '</div></section>';
+
+  // Shopping
+  html += '<section id="shopping" class="section"><div class="section-header"><h2>What to Buy</h2><p>Mongolia has some seriously unique finds — here\'s your shopping hit list</p></div><div class="grid">';
+  DATA.shopping.forEach(s => {
+    let c = `<div class="shop-emoji">${s.emoji}</div>`;
+    c += `<div class="shop-title">${s.title}</div>`;
+    c += `<div class="shop-desc">${s.desc}</div>`;
+    c += `<div class="shop-where"><span class="label">Where: </span><span class="val">${s.where}</span></div>`;
+    html += cardWrap(c);
+  });
+  html += '</div></section>';
+
+  // UB Nights Vote
+  html += '<section id="ub-nights" class="section"><div class="ub-nights-box"><h3>🏙️ How Many Nights in UB?</h3>';
+  html += '<p class="info">More UB time = more shopping, dining, spa time, and city culture.<br>Less UB = more countryside, more nature, more nomadic immersion.<br>Pick your preference!</p>';
+  html += '<div class="ub-options">';
+  html += '<div class="ub-option"><p class="label">🏙️ City Lovers</p><p class="sub">3 nights UB + 3 countryside</p>' + voteHTML('ub3','nights') + '</div>';
+  html += '<div class="ub-option"><p class="label">🏔️ Countryside First</p><p class="sub">2 nights UB + 4 countryside</p>' + voteHTML('ub2','nights') + '</div>';
+  html += '</div></div></section>';
+
+  // Itineraries
+  const activeTab = document.querySelector('.itin-tab.active')?.dataset?.id || 'itin1';
+  html += '<section id="itineraries" class="section"><div class="section-header"><h2>Choose Our Vibe</h2><p>Three ways to do this trip — vote for your favorite pace</p></div>';
+  html += '<div class="itin-tabs">';
+  DATA.itineraries.forEach(it => {
+    html += `<button class="itin-tab ${it.id===activeTab?'active':''}" data-id="${it.id}" onclick="switchTab('${it.id}')">${it.name}</button>`;
+  });
+  html += '</div>';
+  const active = DATA.itineraries.find(it=>it.id===activeTab);
+  html += `<p class="itin-tagline">"${active.tagline}"</p><div class="itin-days">`;
+  active.days.forEach(d => {
+    html += `<div class="card day-card visible"><div class="day-row"><div class="day-num">D${d.day}</div><div><div class="day-title">${d.title}</div><div class="day-desc">${d.desc}</div></div></div></div>`;
+  });
+  html += '</div><div style="text-align:center;margin-top:20px">' + voteHTML(active.id, 'itin') + '</div></section>';
+
+  // Footer
+  html += '<div class="footer"><p>See you on the steppe, ladies ✨</p><p>Built with love by Terah · Vote on everything, and let\'s make this happen!</p></div>';
+
+  document.getElementById('mainContent').innerHTML = html;
+}
+
+function switchTab(id) {
+  document.querySelectorAll('.itin-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelector(`.itin-tab[data-id="${id}"]`)?.classList.add('active');
+  renderAll();
+  setTimeout(()=>document.querySelectorAll('.card').forEach(c=>c.classList.add('visible')),50);
+}
+
+function observeCards() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.card:not(.visible)').forEach(c => obs.observe(c));
+}
+
+// Re-observe after any render
+const mutObs = new MutationObserver(() => setTimeout(observeCards, 50));
+document.addEventListener('DOMContentLoaded', () => {
+  const main = document.getElementById('mainContent');
+  if (main) mutObs.observe(main, { childList: true, subtree: true });
+});
+</script>
+</body>
+</html>
